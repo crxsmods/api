@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">   
-  <meta name="description" content="">
+  <meta name="description" content="Página para reestablecer la contraseña">
   <meta name="author" content="">
-  <meta property="og:image" content="https://github.com/BrunoSobrino.png">
+  <meta property="og:image" content="https://github.com/CrxsMods.png">
   <title>API | Reset password</title>
   <link href="https://fonts.googleapis.com/css?family=Raleway|Ubuntu" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
@@ -18,16 +18,16 @@
         <h1>Reestablecer Contraseña</h1>
         <form action="#" method="post" id="logg">
           <div class="contenedor-input">
-            <label>
+            <label for="logmail">
               Nueva Contraseña <span class="req">*</span>
             </label>
-            <input type="password" required id="logmail" oninput="moveLabel('logmail')">  
+            <input type="password" required id="logmail" minlength="8" oninput="moveLabel('logmail')">
           </div>
           <div class="contenedor-input">
-            <label>
+            <label for="logpass_confirm">
               Confirmar Contraseña <span class="req">*</span>
             </label>
-            <input type="password" required id="logpass_confirm" oninput="moveLabel('logpass_confirm')">    
+            <input type="password" required id="logpass_confirm" minlength="8" oninput="moveLabel('logpass_confirm')">
           </div>
           <input type="submit" class="button button-block" value="Reestablecer Contraseña">
         </form>
@@ -37,68 +37,111 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
-    $(document).ready(function(){
-      $('.tab a').on('click', function (e) {
-        e.preventDefault();
-
-        $(this).parent().addClass('active');
-        $(this).parent().siblings().removeClass('active');
-
-        target = $(this).attr('href');
-
-        $('.contenido-tab > div').not(target).hide();
-
-        $(target).fadeIn(600);
-      });
-
+    $(document).ready(function() {
+      // Validación y envío del formulario
       logg.addEventListener("submit", function(event) {
         event.preventDefault();
+        
+        if (logmail.value.length < 8 || logpass_confirm.value.length < 8) {
+          alert("La contraseña debe tener al menos 8 caracteres");
+          return;
+        }
+        
         if (logmail.value !== logpass_confirm.value) {
           alert("Las contraseñas no coinciden");
           return;
         }
+
         const urlParams = new URLSearchParams(window.location.search);
-        const myParam = urlParams.get('resetToken');
+        const resetToken = urlParams.get('resetToken');
+        
         fetch("/api/manageusers/reset", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            tokenReset: myParam,
+            tokenReset: resetToken,
             password: btoa(logmail.value)
           })
         })
-          .then(response => response.json())
-          .then(data => {
-            if (!data.status) {
-              alert(data.message);
-            } else if (logmail.value.length < 8) {  
-                alert("[❗] La contraseña debe tener al menos 8 caracteres.");
-                return;                     
-            } else {
-              window.location.href = "/login.html";
-            }
-          })
-          .catch(error => {
-            alert("Error en el login");
-          });
+        .then(response => response.json())
+        .then(data => {
+          if (!data.status) {
+            alert(data.message);
+          } else {
+            alert("Contraseña reestablecida con éxito");
+            window.location.href = "/login.html";
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert("Error al reestablecer la contraseña");
+        });
       });
     });
-      
+    
+    // Animación de etiquetas
     function moveLabel(inputId) {
       const input = document.getElementById(inputId);
       const label = input.previousElementSibling;
+      
       if (input.value.length > 0) {
-        label.style.transform = 'translateY(-20px)';
-        label.style.fontSize = '14px';
-        label.querySelector('.req').style.display = 'none';
+        label.classList.add('label-active');
       } else {
-        label.style.transform = '';
-        label.style.fontSize = '';
-        label.querySelector('.req').style.display = 'inline';
+        label.classList.remove('label-active');
       }
     }
   </script>
+
+  <style>
+    /* Estilos para animación de etiquetas */
+    .contenedor-input label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      transition: all 0.3s ease;
+      font-size: 16px;
+    }
+
+    .label-active {
+      transform: translateY(-20px);
+      font-size: 14px;
+    }
+
+    .contenedor-input {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .contenedor-input input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contenedor-input input:focus {
+      border-color: #007bff;
+    }
+
+    .button-block {
+      width: 100%;
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .button-block:hover {
+      background-color: #218838;
+    }
+  </style>
 </body>
 </html>
