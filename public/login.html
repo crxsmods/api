@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-<!-- partial:index.partial.html -->
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,7 +24,6 @@
     <meta name="author" content="">
     <meta property="og:image" content="https://github.com/crxsmods.png">
     <title>API | CrxsMods</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="https://fonts.googleapis.com/css?family=Raleway|Ubuntu" rel="stylesheet">
     <script>
         if (localStorage.getItem("token")) {
@@ -33,7 +33,7 @@
 </head>
 <body>
 
-   <!-- Formularios -->
+    <!-- Formularios -->
     <div class="contenedor-formularios">
         <!-- Links de los formularios -->
         <ul class="contenedor-tabs">
@@ -42,284 +42,195 @@
         </ul>
 
        <!-- Contenido de los Formularios -->
-<div class="contenido-tab" style="perspective: 1000px;">
-    <!-- Iniciar Sesión -->
-    <div id="iniciar-sesion" class="form-box">
-        <h1>Iniciar Sesión</h1>
-        <form action="#" method="post" id="login-form">
-            <!-- Campo para el correo electrónico -->
-            <div class="contenedor-input">
-                <label for="logmail">Correo <span class="req">*</span></label>
-                <input type="email" id="logmail" name="email" required>
+        <div class="contenido-tab" style="perspective: 1000px;">
+            <!-- Iniciar Sesión -->
+            <div id="iniciar-sesion" class="form-box">
+                <h1>Iniciar Sesión</h1>
+                <form action="#" method="post" id="login-form">
+                    <!-- Campo para el correo electrónico -->
+                    <div class="contenedor-input">
+                        <label for="logmail">Correo <span class="req">*</span></label>
+                        <input type="email" id="logmail" name="email" required>
+                    </div>
+
+                    <!-- Campo para la contraseña -->
+                    <div class="contenedor-input">
+                        <label for="logpass">Contraseña <span class="req">*</span></label>
+                        <input type="password" id="logpass" name="password" required>
+                    </div>
+
+                    <!-- Enlace para recuperar la contraseña -->
+                    <p class="forgot">
+                        <a href="javascript:void(0);" onclick="requestReset()">¿Olvidaste tu contraseña?</a>
+                    </p>
+
+                    <!-- Botón para iniciar sesión -->
+                    <input type="submit" class="button button-block" value="Iniciar Sesión">
+                </form>
             </div>
+        </div>
 
-            <!-- Campo para la contraseña -->
-            <div class="contenedor-input">
-                <label for="logpass">Contraseña <span class="req">*</span></label>
-                <input type="password" id="logpass" name="password" required>
+        <!-- Registrarse -->
+        <div id="registrarse" class="form-box">
+            <h1>Registrarse</h1>
+            <form action="#" method="post" id="register-form">
+                <!-- Campo para el correo electrónico -->
+                <div class="contenedor-input">
+                    <label for="regmail">Email <span class="req">*</span></label>
+                    <input type="email" id="regmail" name="email" required>
+                </div>
+
+                <!-- Campo para la contraseña -->
+                <div class="contenedor-input">
+                    <label for="regpass">Contraseña <span class="req">*</span></label>
+                    <input type="password" id="regpass" name="password" required>
+                </div>
+
+                <!-- Campo para repetir la contraseña -->
+                <div class="contenedor-input">
+                    <label for="regpass2">Repetir Contraseña <span class="req">*</span></label>
+                    <input type="password" id="regpass2" name="confirm-password" required>
+                </div>
+
+                <!-- Botón de registro -->
+                <input type="submit" class="button button-block" value="Registrarse" id="submitButton">
+            </form>
+        </div>
+
+        <!-- Contenedor de Contacto -->
+        <div class="contenedor-contacto">
+            <div class="contacto-info">
+                <a href="https://wa.me/5217121649714" target="_blank" class="icono">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://github.com/CrxsMods" target="_blank" class="icono">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.paypal.com/paypalme/CrxsMods" target="_blank" class="icono">
+                    <i class="fab fa-paypal"></i>
+                </a>
             </div>
-
-            <!-- Enlace para recuperar la contraseña -->
-            <p class="forgot">
-                <a href="javascript:void(0);" onclick="requestReset()">¿Olvidaste tu contraseña?</a>
-            </p>
-
-            <!-- Botón para iniciar sesión -->
-            <input type="submit" class="button button-block" value="Iniciar Sesión">
-        </form>
+        </div>
     </div>
-</div>
 
-<style>
-    /* Estilo general del contenedor */
-    .contenido-tab {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        background: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transform-style: preserve-3d;
-        transition: transform 0.3s ease;
-    }
-
-    .form-box:hover {
-        transform: rotateX(5deg) rotateY(-5deg);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Estilo de los campos de entrada */
-    .contenedor-input {
-        margin-bottom: 15px;
-        position: relative;
-    }
-
-    .contenedor-input label {
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .contenedor-input input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background: #fff;
-        box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .contenedor-input input:focus {
-        box-shadow: 0 0 8px rgba(0, 150, 250, 0.5);
-        transform: scale(1.02);
-    }
-
-    /* Estilo del botón */
-    .button-block {
-        width: 100%;
-        padding: 12px;
-        background: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-    }
-
-    .button-block:hover {
-        background: #0056b3;
-        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
-    }
-
-    /* Estilo del enlace de recuperar contraseña */
-    .forgot a {
-        color: #007bff;
-        text-decoration: none;
-        transition: color 0.3s ease;
-    }
-
-    .forgot a:hover {
-        color: #0056b3;
-    }
-</style>
-
-
-          <!-- Registrarse -->
-<div id="registrarse" class="form-box">
-    <h1>Registrarse</h1>
-    <form action="#" method="post" id="register-form">
-        <!-- Campo para el correo electrónico -->
-        <div class="contenedor-input">
-            <label for="regmail">Email <span class="req">*</span></label>
-            <input type="email" id="regmail" name="email" required>
-        </div>
-
-        <!-- Campo para la contraseña -->
-        <div class="contenedor-input">
-            <label for="regpass">Contraseña <span class="req">*</span></label>
-            <input type="password" id="regpass" name="password" required>
-        </div>
-
-        <!-- Campo para repetir la contraseña -->
-        <div class="contenedor-input">
-            <label for="regpass2">Repetir Contraseña <span class="req">*</span></label>
-            <input type="password" id="regpass2" name="confirm-password" required>
-        </div>
-
-        <!-- Botón de registro -->
-        <input type="submit" class="button button-block" value="Registrarse" id="submitButton">
-    </form>
-</div>
-
-<style>
-    /* Estilo general del formulario */
-    .form-box {
-        max-width: 400px;
-        margin: 0 auto;
-        padding: 20px;
-        background: #f9f9f9;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        transform-style: preserve-3d;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* Efecto de profundidad en hover */
-    .form-box:hover {
-        transform: rotateX(3deg) rotateY(-3deg);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Estilo de los campos de entrada */
-    .contenedor-input {
-        margin-bottom: 15px;
-    }
-
-    .contenedor-input label {
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .contenedor-input input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        background: #fff;
-        box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .contenedor-input input:focus {
-        box-shadow: 0 0 8px rgba(0, 150, 250, 0.5);
-        transform: scale(1.02);
-    }
-
-    /* Estilo del botón de registro */
-    .button-block {
-        width: 100%;
-        padding: 12px;
-        background: #28a745;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
-    }
-
-    .button-block:hover {
-        background: #218838;
-        box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
-    }
-</style>
-
-   <!-- Contenedor de Contacto -->
-<div class="contenedor-contacto">
-    <div class="contacto-info">
-        <a href="https://wa.me/5217121649714" target="_blank" class="icono">
-            <i class="fab fa-whatsapp"></i>
-        </a>
-        <a href="https://github.com/CrxsMods" target="_blank" class="icono">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.paypal.com/paypalme/CrxsMods" target="_blank" class="icono">
-            <i class="fab fa-paypal"></i>
-        </a>
-    </div>
-</div>
-
-<style>
-    /* Efecto de aparición */
-    .contenedor-contacto {
-        opacity: 0;
-        transform: translateY(20px);
-        animation: fadeIn 1s ease-out forwards;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 20px;
-    }
-
-    /* Animación de aparición */
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-            transform: translateY(0);
+    <style>
+        /* Estilo general */
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: #eaeaea;
+            color: #333;
         }
-    }
 
-    /* Estilos generales para los íconos */
-    .icono {
-        font-size: 40px;
-        color: #000;
-        text-decoration: none;
-        position: relative;
-        transition: transform 0.3s ease, border-color 0.3s ease;
-    }
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
 
-    /* Efecto hover: agrandar ícono y mostrar contorno de color */
-    .icono:hover {
-        transform: scale(1.2);
-        color: #007bff; /* Cambiar el color del ícono al hacer hover */
-    }
+        /* Estilo del contenedor */
+        .contenido-tab, .form-box {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
 
-    /* Efecto de clic: mostrar contorno de color */
-    .icono:active {
-        border: 2px solid #007bff;
-        border-radius: 50%;
-        padding: 10px;
-        transition: border-color 0.2s ease;
-    }
+        /* Estilo de los campos de entrada */
+        .contenedor-input {
+            margin-bottom: 15px;
+        }
 
-    /* Estilo de los íconos específicos */
-    .fa-whatsapp {
-        color: #25d366;
-    }
+        .contenedor-input label {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
 
-    .fa-github {
-        color: #333;
-    }
+        .contenedor-input input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #fff;
+            color: #333;
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
 
-    .fa-paypal {
-        color: #003087;
-    }
+        .contenedor-input input:focus {
+            box-shadow: 0 0 8px rgba(0, 150, 250, 0.5);
+            transform: scale(1.02);
+        }
 
-    /* Estilo de cambio de color del ícono cuando se pasa el mouse */
-    .icono:hover .fa-whatsapp {
-        color: #128c7e;
-    }
+        /* Botón */
+        .button-block {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    .icono:hover .fa-github {
-        color: #4078c0;
-    }
+        .button-block:hover {
+            background: #0056b3;
+        }
 
-    .icono:hover .fa-paypal {
-        color: #009cde;
-    }
-</style>
+        /* Animaciones suaves */
+        .form-box, .contenedor-contacto {
+            animation: fadeInUp 1s ease;
+        }
 
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enlace de recuperación */
+        .forgot a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot a:hover {
+            color: #0056b3;
+        }
+
+        /* Iconos de contacto */
+        .contenedor-contacto {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .icono {
+            font-size: 40px;
+            color: #000;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .icono:hover {
+            transform: scale(1.2);
+            color: #007bff;
+        }
+    </style>
+
+
+
+
+    
 
     async function requestReset() {
       if (!logmail.value) {
